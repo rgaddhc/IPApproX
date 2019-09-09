@@ -48,8 +48,8 @@ echo "${Green}--> Compiling ${IP}... ${NC}"
 
 rm -rf $LIB_PATH
 
-#vlib $LIB_PATH
-#vmap $LIB_NAME $LIB_PATH
+vlib $LIB_PATH
+vmap $LIB_NAME $LIB_PATH
 
 ##############################################################################
 # Compiling RTL
@@ -73,13 +73,13 @@ VSIM_PREAMBLE_SUBIP = """
 echo "${Green}Compiling component: ${Brown} %s ${NC}"
 echo "${Red}"
 """
-VSIM_VLOG_INCDIR_CMD = " -incdir "
+VSIM_VLOG_INCDIR_CMD = "+incdir+"
 
 ## Add -suppress 2583 to remove warning about always_comb|ff wrapped with
 # generate struct that can be only checked after elaboration at vopt stage
-VSIM_VLOG_CMD = "xrun -compile -makelib ${LIB_PATH} %s %s %s -endlib || goto error\n"
+VSIM_VLOG_CMD = "vlog -quiet -sv -suppress 2583 -work ${LIB_PATH} %s %s %s || goto error\n"
 
-VSIM_VCOM_CMD = "xrun -v93 -compile -makelib ${LIB_PATH} %s %s -endlib || goto error\n"
+VSIM_VCOM_CMD = "vcom -quiet -suppress 2583 -work ${LIB_PATH} %s %s || goto error\n"
 
 # templates for vsim.tcl
 VSIM_TCL_PREAMBLE = """set VSIM_IP_LIBS " \\\
