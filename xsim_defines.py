@@ -71,7 +71,6 @@ exit 1
 
 VSIM_PREAMBLE_SUBIP = """
 echo "${Green}Compiling component: ${Brown} %s ${NC}"
-echo "${Red}"
 """
 VSIM_VLOG_INCDIR_CMD = "+incdir+"
 
